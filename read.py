@@ -56,8 +56,8 @@ def read(in_file):
 
             #make sure not to update pointer, if it was already done so by the preceding '+'
             #this might never occur in the game, because usually right after the
-            #entry gate there is a blank space. If however, on later levels there is
-            #a movable block right after the gate, this takes care of it
+            #entry gate there is a blank space. If, however, on later levels there is
+            #a movable block right after the enter gate, this takes care of it
             if input_string[index-1] == '+':
                 continue
 
@@ -74,13 +74,16 @@ def read(in_file):
             k += 1
             continue
         elif u == '*':  #if you run into #, set matrix entry to 9
-            matrix[j][k-1] = 9
+            matrix[j][k-1] = 0
             k = 0
             continue
         else:
             continue
-
     return matrix
 
-test = read('encoding.txt')
-print(numpy.matrix(test))
+def main():
+    test_matrix = read('encoding.txt')
+    print("\n", numpy.matrix(test_matrix), "\n")
+
+if __name__ == '__main__':
+    main()
