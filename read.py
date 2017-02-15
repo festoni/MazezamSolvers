@@ -50,7 +50,7 @@ def read(in_file):
                 j += 1
                 k = 0
             continue
-        elif u == 'L' or u == 'C' or u == 'R': #enter 1 in matrix, set index to next column
+        elif u == 'L' or u == 'C' or u == 'R' or u == 'I': #enter 1 in matrix, set index to next column
             matrix[j][k] = 1
             k += 1
 
