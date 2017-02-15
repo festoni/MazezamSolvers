@@ -73,17 +73,17 @@ def read(in_file):
             matrix[j][k] = 2
             k += 1
             continue
-        elif u == '*':  #if you run into #, set matrix entry to 9
+        elif u == '*':  #if you run into* change row and save exit in a variable
             matrix[j][k-1] = 0
             k = 0
+            exit = j
             continue
         else:
             continue
-    return matrix
+    return matrix, exit
 
-def main():
-    test_matrix = read('encoding.txt')
-    print("\n", numpy.matrix(test_matrix), "\n")
 
 if __name__ == '__main__':
-    main()
+    test_matrix, exit = read('encoding.txt')
+    print("\n", numpy.matrix(test_matrix), "\n")
+    print("exit is in row:", exit, "\n")
