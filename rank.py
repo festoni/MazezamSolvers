@@ -53,13 +53,12 @@ def rank(matrix_in):
     print("\nbases:\t", bases_arr)
     print("digits:\t", digits_arr)
     print("integer:",unique_int,"\n")
-    
+
     return unique_int
 
-def main():
-    # matrix3 = [[2,1,1,0,0,1,1], [1,0,1,0,1,0,0], [0,0,0,1,1,0,1]]
-    test_matrix2 = read('encoding.txt')
-    rank(test_matrix2)
 
 if __name__ == '__main__':
-    main()
+    matrix3 = [[0,1,1,0,0,1,1], [1,0,1,0,1,0,0], [0,0,2,1,1,0,1]]
+    rank(matrix3)
+    # test_matrix2 = read('encoding.txt')
+    # rank(test_matrix2)
