@@ -1,5 +1,15 @@
 import numpy
 
+#find the player position (2) in matrix and return its indices
+def player_pos(matrix):
+    for j, row in enumerate(matrix):
+        for k, entry in enumerate(row):
+            if matrix[j][k] == 2:
+                print("j is", j)
+                print("k is", k)
+                return j, k
+
+#rotate the whole row to left/right, when player successfully pushes block chunk
 def rotate(matrix, row_idx, side):
     if side == "right":
         temp = list(matrix[row_idx])
@@ -14,70 +24,59 @@ def rotate(matrix, row_idx, side):
     return(matrix)
 
 def right(matrix_in):
-    for j, row in enumerate(matrix_in):
-        for k, value in enumerate(row):
-            if value != 2:  #loop until you find 2 (player)
-                 continue
-            elif k == len(row)-1:
-                return matrix_in
-            elif matrix_in[j][k+1] == 0: #swap (move into blank space)
-                matrix_in[j][k+1], matrix_in[j][k] = matrix_in[j][k], matrix_in[j][k+1]
-                return matrix_in
-            elif matrix_in[j][-1] != 0: #no possible movement to right
-                return matrix_in
-            elif matrix_in[j][k+1] == 1: #rotate right (push block chunk to right)
-                return rotate(matrix_in, j, "right")
-    return matrix_in
+    j, k = player_pos(matrix_in)
+    if k == len(matrix_in[j])-1:  #already in rightmost position
+        return None
+    elif matrix_in[j][k+1] == 0: #swap (move into blank space)
+        matrix_in[j][k+1], matrix_in[j][k] = matrix_in[j][k], matrix_in[j][k+1]
+        return matrix_in
+    elif matrix_in[j][-1] != 0: #no possible movement to right
+        return None
+    elif matrix_in[j][k+1] == 1: #rotate right (push block chunk to right)
+        return rotate(matrix_in, j, "right")
+    return None
 
 def left(matrix_in):
-    for j, row in enumerate(matrix_in):
-        for k, value in enumerate(row):
-            if value != 2:
-                 continue
-            elif k == 0:
-                return matrix_in
-            elif matrix_in[j][k-1] == 0: #swap
-                matrix_in[j][k-1], matrix_in[j][k] = matrix_in[j][k], matrix_in[j][k-1]
-                return matrix_in
-            elif matrix_in[j][0] != 0: #no possible movement to left
-                return matrix_in
-            elif matrix_in[j][k-1] == 1: #rotate left
-                return rotate(matrix_in, j, "left")
-    return matrix_in
+    j, k = player_pos(matrix_in)
+    if k == 0:  #already in leftmost position
+        return None
+    elif matrix_in[j][k-1] == 0: #swap
+        matrix_in[j][k-1], matrix_in[j][k] = matrix_in[j][k], matrix_in[j][k-1]
+        return matrix_in
+    elif matrix_in[j][0] != 0: #no possible movement to left
+        return None
+    elif matrix_in[j][k-1] == 1: #rotate left
+        return rotate(matrix_in, j, "left")
+    return None
 
 def up(matrix_in):
-    for j, row in enumerate(matrix_in):
-        for k, value in enumerate(row):
-            if value != 2:
-                continue
-            if j == 0:  #at border, no possible movement
-                return matrix_in
-            elif matrix_in[j-1][k] != 0: #block ahead, cannot move up
-                return matrix_in
-            else: #swap with blank space above
-                matrix_in[j][k],matrix_in[j-1][k] = matrix_in[j-1][k], matrix_in[j][k]
-                return matrix_in
-    return matrix_in
+    j, k = player_pos(matrix_in)
+    if j == 0:  #at border, no possible movement
+        return None
+    elif matrix_in[j-1][k] != 0: #block ahead, cannot move up
+        return None
+    else: #swap with blank space above
+        matrix_in[j][k],matrix_in[j-1][k] = matrix_in[j-1][k], matrix_in[j][k]
+        return matrix_in
+    return None
+
 
 def down(matrix_in):
-    for j, row in enumerate(matrix_in):
-        for k, value in enumerate(row):
-            if value != 2:
-                continue
-            if j == len(matrix_in)-1:  #at border, no possible movement
-                return matrix_in
-            elif matrix_in[j+1][k] != 0: #block ahead, cannot move up
-                return matrix_in
-            else: #swap with blank space below
-                matrix_in[j][k],matrix_in[j+1][k] = matrix_in[j+1][k], matrix_in[j][k]
-                return matrix_in
-    return matrix_in
+    j, k = player_pos(matrix_in)
+    if j == len(matrix_in)-1:  #at border, no possible movement
+        return None
+    elif matrix_in[j+1][k] != 0: #block ahead, cannot move up
+        return None
+    else: #swap with blank space below
+        matrix_in[j][k],matrix_in[j+1][k] = matrix_in[j+1][k], matrix_in[j][k]
+        return matrix_in
+    return None
 
 if __name__ == '__main__':
 
-    test_matrix = [[0,0,1,1,1,0], [0,1,0,2,1,0], [0,1,1,0,1,0,]]
+    test_matrix = [[1,1,1,0,2,1], [0,1,1,0,0,0], [0,1,1,0,1,0,]]
     print("orig:\n", numpy.matrix(test_matrix),"\n")
     print("down:\n",numpy.matrix(down(test_matrix)))
     print("right:\n",numpy.matrix(right(test_matrix)))
     print("up:\n",numpy.matrix(up(test_matrix)))
-    print("right:\n",numpy.matrix(left(test_matrix)))
+    print("left:\n",numpy.matrix(left(test_matrix)))
