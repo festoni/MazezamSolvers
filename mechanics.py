@@ -1,8 +1,5 @@
 import numpy
 
-def swap(x,y):
-    return y,x
-
 def rotate(matrix, row_idx, side):
     if side == "right":
         temp = list(matrix[row_idx])
@@ -19,16 +16,16 @@ def rotate(matrix, row_idx, side):
 def right(matrix_in):
     for j, row in enumerate(matrix_in):
         for k, value in enumerate(row):
-            if value != 2:  #loop until you find 2
+            if value != 2:  #loop until you find 2 (player)
                  continue
             elif k == len(row)-1:
                 return matrix_in
             elif matrix_in[j][k+1] == 0: #swap (move into blank space)
                 matrix_in[j][k+1], matrix_in[j][k] = matrix_in[j][k], matrix_in[j][k+1]
                 return matrix_in
-            elif matrix_in[j][-1] != 0: #no possible movement to left
+            elif matrix_in[j][-1] != 0: #no possible movement to right
                 return matrix_in
-            elif matrix_in[j][k+1] == 1: #rotate left (push block chunk to left)
+            elif matrix_in[j][k+1] == 1: #rotate right (push block chunk to right)
                 return rotate(matrix_in, j, "right")
     return matrix_in
 
@@ -42,9 +39,9 @@ def left(matrix_in):
             elif matrix_in[j][k-1] == 0: #swap
                 matrix_in[j][k-1], matrix_in[j][k] = matrix_in[j][k], matrix_in[j][k-1]
                 return matrix_in
-            elif matrix_in[j][0] != 0: #no possible movement to right
+            elif matrix_in[j][0] != 0: #no possible movement to left
                 return matrix_in
-            elif matrix_in[j][k-1] == 1: #rotate right
+            elif matrix_in[j][k-1] == 1: #rotate left
                 return rotate(matrix_in, j, "left")
     return matrix_in
 
@@ -76,13 +73,11 @@ def down(matrix_in):
                 return matrix_in
     return matrix_in
 
+if __name__ == '__main__':
 
-
-
-
-test_matrix = [[0,0,1,1,1,0], [0,1,0,2,1,0], [0,1,1,0,1,0,]]
-print("orig:\n", numpy.matrix(test_matrix),"\n")
-print("down:\n",numpy.matrix(down(test_matrix)))
-print("right:\n",numpy.matrix(right(test_matrix)))
-print("up:\n",numpy.matrix(up(test_matrix)))
-print("right:\n",numpy.matrix(left(test_matrix)))
+    test_matrix = [[0,0,1,1,1,0], [0,1,0,2,1,0], [0,1,1,0,1,0,]]
+    print("orig:\n", numpy.matrix(test_matrix),"\n")
+    print("down:\n",numpy.matrix(down(test_matrix)))
+    print("right:\n",numpy.matrix(right(test_matrix)))
+    print("up:\n",numpy.matrix(up(test_matrix)))
+    print("right:\n",numpy.matrix(left(test_matrix)))
