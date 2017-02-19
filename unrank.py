@@ -6,25 +6,25 @@ number of columns that make up the level. The integer is what we are trying to
 unrank from, the bases array will be used to get the digits array. The block patterns
 are basically strings starting from the beginning of the block chunk all the way to
 the end of the block chunk. It is called a pattern because it also describes the
-blank spaces within the block chunk. And also how long individual block is in the
-chunk. The block pattern in the matrix start at the digit-th column.
+blank spaces within the block chunk. It also describes how long each individual
+block is in the chunk. The block pattern in the matrix starts at the digit-th column.
 '''
 def unrank(uniq_int, bases_arr, block_patterns, columns):
 
     '''
     This part figures out the digits array from the integer and the base array.
-    It pops the first item from the base, then multiplies the remaining bases, and
-    then does integer division of the integer and the product of remaining bases.
+    It looks at an item from the base, then multiplies the following bases, and
+    then does integer division of the integer and the product of following bases.
     The integer result is added on the digit array. Lastly, the integer is now
     updated to equal the remainder of itself divided by product of bases. This keeps
     going until there are no more elements left in the bases array
     '''
     temp_int = uniq_int
     digits_arr = []
-    while len(bases_arr) != 0:  #run loop until no more elements in bases array
-        bases_arr.pop(0)
+
+    for idx, item in enumerate(bases_arr):  #run loop until no more elements in bases array
         temp = 1
-        for i in bases_arr:     #multiply all the current bases in the array
+        for i in bases_arr[idx+1:]:     #multiply all the current bases in the array
              temp *= i
         digit = temp_int // temp    #do integer division on integer and bases product
         if temp > temp_int:         #if bases product greater than integer, put 0 as digit
@@ -33,6 +33,8 @@ def unrank(uniq_int, bases_arr, block_patterns, columns):
             continue
         digits_arr.append(digit)
         temp_int = temp_int % temp
+
+
 
     state_m = [[0 for j in range(columns)] for k in range(len(digits_arr)-1)]
 
@@ -55,27 +57,28 @@ def unrank(uniq_int, bases_arr, block_patterns, columns):
     player_digit-th zero it changes it into a 2.
     '''
     p = 0
+    player = digits_arr[-1]
     for row, val in enumerate(state_m):
         for column, val2 in enumerate(state_m[row]):
             if val2 != 0:
                 continue
-            if p == 9:
+            if p == player:
                 state_m[row][column] = 2
-                break                       #when you hit player position stop
+                break                       #when you find player position, update
             p += 1
-        if p == 9:
-            break                           #when you hit player position stop
-
+        if state_m[row][column] == 2:
+            break                           #when player position updated, stop
     return state_m
 
 
 if __name__ == '__main__':
 
-    #testing
+    # testing
     integer = 174
     bases = [2, 3, 4, 11]
-    block_pattern = [[1,1,0,0,1,1], [1,0,1,0,1], [1,1,0,1], [2]]
+    block_pattern = [[1,1,0,0,1,1], [1,0,1,0,1], [1,1,0,1]]
     num_columns = 7
 
     test_matrix = unrank(integer, bases, block_pattern, num_columns)
-    print("\n",numpy.matrix(test_matrix),"\n")
+    print("\ninput integer:\n", integer)
+    print("\ncorresponding matrix:\n",numpy.matrix(test_matrix),"\n")
