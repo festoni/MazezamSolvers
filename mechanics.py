@@ -6,6 +6,7 @@ def player_pos(matrix):
         for k, entry in enumerate(row):
             if matrix[j][k] == 2:
                 return j, k
+    print("There was no player found (num 2) in matrix")
 
 #rotate the whole row to left/right, when player successfully pushes block chunk
 def rotate(matrix, row_idx, side):
@@ -105,7 +106,7 @@ if __name__ == '__main__':
     test_matrix = [[1,1,0,1,1,0], [0,1,1,2,0,0], [0,1,1,0,1,0,]]
 
     #this showcases a single instance of all four moves
-    print("orignal:\n", numpy.matrix(test_matrix),"\n")
+    print("start:\n", numpy.matrix(test_matrix),"\n")
 
     j, k = player_pos(test_matrix)
     if can_down(test_matrix, j, k):
