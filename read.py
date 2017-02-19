@@ -85,5 +85,5 @@ def read(in_file):
 
 if __name__ == '__main__':
     test_matrix, exit = read('encoding.txt')
-    print("\n", numpy.matrix(test_matrix), "\n")
-    print("exit is in row:", exit, "\n")
+    print("\nstate matrix:\n", numpy.matrix(test_matrix), "\n")
+    print("exit row:", exit, "\n")
