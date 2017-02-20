@@ -79,6 +79,12 @@ if __name__ == '__main__':
     block_pattern = [[1,1,0,0,1,1], [1,0,1,0,1], [1,1,0,1]]
     num_columns = 7
 
+    # integer = 174
+    # bases = [3, 7, 7, 8]
+    # block_pattern = [[1,1,0,0,1,1], [1,0,1,0,1], [1,1,0,1]]
+    # num_columns = 7
+
+
     test_matrix = unrank(integer, bases, block_pattern, num_columns)
     print("\ninput integer:\n", integer)
     print("\ncorresponding matrix:\n",numpy.matrix(test_matrix),"\n")

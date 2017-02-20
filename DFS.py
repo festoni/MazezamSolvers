@@ -164,9 +164,10 @@ if __name__ == '__main__':
     start_time = time.time()
 
     # test_matrix, exit_row = [[1,1,0,1,1,0], [0,1,1,2,0,0], [0,1,1,0,1,0,]], 2
+    test_matrix, exit_row = [[2,0,1],[0,1,0], [1,0,0]], 2
     # test_matrix, exit_row = [[2,1,1,0], [0,1,0,0], [1,1,0,0]], 2
-    test_matrix, exit_row = read.read('encoding2.txt')
-    path  = DFS_prune(test_matrix, exit_row, False)
+    # test_matrix, exit_row = read.read('encoding2.txt')
+    path  = DFS_prune2(test_matrix, exit_row, False)
 
     if path == None:
         print("No solution was found")

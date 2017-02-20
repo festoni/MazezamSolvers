@@ -18,7 +18,8 @@ def get_information(matrix_in):
     Count the number of zeros starting from left up to the leftmost 1 and
     the number of zeros starting from the right up to the rightmost 1 for each
     row, to determine the bases of these rows. Also, take note of the index
-    of the leftmost 1 in each row to determine its digit
+    of the leftmost 1 in each row to determine its digit. This assumes that every
+    row has at least a block and it won't work if there are none.
     Note: number of zeros on right of block chunk + number of zeros on left of block
     chunk + 1 (space already taken by the block chunk) equals the base of that row.
     '''
@@ -88,7 +89,8 @@ def rank(matrix_in):
 
 
 if __name__ == '__main__':
-    matrix3 = [[0,1,1,0,0,1,1], [1,0,1,0,1,0,0], [0,0,2,1,1,0,1]]
+    # matrix3 = [[0,1,1,0,0,1,1], [1,0,1,0,1,0,0], [0,0,2,1,1,0,1]]
+    matrix3 = [[2,0,1],[0,1,0], [1,0,0]]
     # matrix3, exit = read.read('encoding.txt')
     print("\ninput matrix:\n", numpy.matrix(matrix3))
     integer = rank(matrix3)

@@ -1,27 +1,38 @@
 import mechanics, read, rank, unrank #my functions
 import copy
-import time
-
+import time, numpy
 
 #determine all possible movements of the player and return them as a list
-def neighbors(vertex_m):
+def neighbors(vertex_m, with_cost=False):
     neighbors = []
     moves = mechanics.valid_moves(vertex_m)
     if "right" in moves:
         temp = copy.deepcopy(vertex_m)
-        neighbors.append(mechanics.right(temp))
+        if with_cost == False:
+            neighbors.append(mechanics.right(temp))
+        else:
+            neighbors.append(mechanics.right(temp, with_cost=True))
         moves.pop(0)
     if "left" in moves:
         temp = copy.deepcopy(vertex_m)
-        neighbors.append(mechanics.left(temp))
+        if with_cost == False:
+            neighbors.append(mechanics.left(temp))
+        else:
+            neighbors.append(mechanics.left(temp, with_cost=True))
         moves.pop(0)
     if "up" in moves:
         temp = copy.deepcopy(vertex_m)
-        neighbors.append(mechanics.up(temp))
+        if with_cost == False:
+            neighbors.append(mechanics.up(temp))
+        else:
+            neighbors.append(mechanics.up(temp, with_cost=True))
         moves.pop(0)
     if "down" in moves:
         temp = copy.deepcopy(vertex_m)
-        neighbors.append(mechanics.down(temp))
+        if with_cost == False:
+            neighbors.append(mechanics.down(temp))
+        else:
+            neighbors.append(mechanics.down(temp, with_cost=True))
         moves.pop(0)
     return neighbors
 
@@ -89,12 +100,18 @@ def BFS2(start, goal, cycle_detect=False, verbose=False):
     return None
 
 if __name__ == '__main__':
-    start_time = time.time()
+    start_time = time.time()    #start keeping track of time
 
-    # test_matrix, exit_row = read.read('encoding.txt')
-    test_matrix, exit_row = [[2,1,1,0], [0,1,0,0], [1,1,0,0]], 2
+    # test_matrix, exit_row = [[1,1,0,1,1,0], [0,1,1,2,0,0], [0,1,1,0,1,0,], ], 2
+    test_matrix, exit_row = read.read('encoding.txt')
+    # test_matrix, exit_row = [[2,1,1,0], [0,1,0,0], [1,1,0,0]], 2
+    # test_matrix, exit_row = [[2,0,1],[0,1,0], [1,0,0]], 2
+
+    # print(neighbors(test_matrix))
     # path  = BFS(test_matrix, exit_row, False, False)
-    path = BFS2(test_matrix, exit_row, False, False)
+    path = BFS2(test_matrix, exit_row, True, False)
+    # path  = BFS(test_matrix, exit_row, True, False)
+
 
     if path == None:
         print("No solution was found")

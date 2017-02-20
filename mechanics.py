@@ -73,34 +73,52 @@ def valid_moves(matrix_in):
     return valid_moves
 
 #move to the right (is and should only be called when a move to right is possible)
-def right(matrix_in):
+def right(matrix_in, with_cost=False):
     j, k = player_pos(matrix_in)
     if matrix_in[j][k+1] == 0: #swap (move into blank space)
         matrix_in[j][k+1], matrix_in[j][k] = matrix_in[j][k], matrix_in[j][k+1]
-        return matrix_in
+        if with_cost == False:
+            return matrix_in
+        else:
+            return 0, matrix_in
     elif matrix_in[j][k+1] == 1: #rotate right (push block chunk to right)
-        return rotate(matrix_in, j, "right")
+        if with_cost == False:
+            return rotate(matrix_in, j, "right")
+        else:
+            return 1, rotate(matrix_in, j, "right")
 
 #move to the left (is and should only be called when a move to left is possible)
-def left(matrix_in):
+def left(matrix_in, with_cost=False):
     j, k = player_pos(matrix_in)
     if matrix_in[j][k-1] == 0: #swap
         matrix_in[j][k-1], matrix_in[j][k] = matrix_in[j][k], matrix_in[j][k-1]
-        return matrix_in
+        if with_cost == False:
+            return matrix_in
+        else:
+            return 0, matrix_in
     elif matrix_in[j][k-1] == 1: #rotate left
-        return rotate(matrix_in, j, "left")
+        if with_cost == False:
+            return rotate(matrix_in, j, "left")
+        else:
+            return 1, rotate(matrix_in, j, "left")
 
 #move player up (is and should only be called when a move up is possible)
-def up(matrix_in):
+def up(matrix_in, with_cost=False):
     j, k = player_pos(matrix_in)
     matrix_in[j][k],matrix_in[j-1][k] = matrix_in[j-1][k], matrix_in[j][k]
-    return matrix_in
+    if with_cost == False:
+        return matrix_in
+    else:
+        return 0, matrix_in
 
 #move player down (is and should only be called when a move down is possible)
-def down(matrix_in):
+def down(matrix_in, with_cost=False):
     j, k = player_pos(matrix_in)
     matrix_in[j][k],matrix_in[j+1][k] = matrix_in[j+1][k], matrix_in[j][k]
-    return matrix_in
+    if with_cost == False:
+        return matrix_in
+    else:
+        return 0, matrix_in
 
 if __name__ == '__main__':
     test_matrix = [[1,1,0,1,1,0], [0,1,1,2,0,0], [0,1,1,0,1,0,]]
