@@ -103,7 +103,7 @@ if __name__ == '__main__':
     start_time = time.time()    #start keeping track of time
 
     # test_matrix, exit_row = [[1,1,0,1,1,0], [0,1,1,2,0,0], [0,1,1,0,1,0,], ], 2
-    test_matrix, exit_row = read.read('encoding.txt')
+    test_matrix, exit_row = read.read('encoding2.txt')
     # test_matrix, exit_row = [[2,1,1,0], [0,1,0,0], [1,1,0,0]], 2
     # test_matrix, exit_row = [[2,0,1],[0,1,0], [1,0,0]], 2
 

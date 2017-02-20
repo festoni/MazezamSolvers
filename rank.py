@@ -26,22 +26,29 @@ def get_information(matrix_in):
     for index, row in enumerate(matrix_in):
         s, f = 0, 0         #variables to track beginning and ending of block pattern
         base_count = 1;
-        for idx, val in enumerate(row): #count zeros up to first 1 from left
-            if val == 1:
-                digits_arr.append(idx)
-                s = idx         #record index at which block pattern starts
-                break
-            base_count += 1
-        for idx, val in list(enumerate(reversed(row))): #count zeros up to first 1 from right
-            if val == 1:
-                f = len(row) - idx - 1  #record index at which block pattern ends
-                break
-            base_count += 1
-        bases_arr.append(base_count)
+
+        if 1 not in row:
+            bases_arr.append(1)
+            digits_arr.append(0)
+        else:
+            for idx, val in enumerate(row): #count zeros up to first 1 from left
+                if val == 1:
+                    digits_arr.append(idx)
+                    s = idx         #record index at which block pattern starts
+                    break
+                base_count += 1
+            for idx, val in list(enumerate(reversed(row))): #count zeros up to first 1 from right
+                if val == 1:
+                    f = len(row) - idx - 1  #record index at which block pattern ends
+                    break
+                base_count += 1
+            bases_arr.append(base_count)
 
         #record the patterns for each row and add them to patterns_arr
         temp_pattern = []
         for i in range(s, f+1):
+            if 1 not in row:    #don't add anything if there are no blocks in row
+                continue
             temp_pattern.append(matrix_in[index][i])
         patterns_arr.append(temp_pattern)
 
@@ -90,12 +97,15 @@ def rank(matrix_in):
 
 if __name__ == '__main__':
     # matrix3 = [[0,1,1,0,0,1,1], [1,0,1,0,1,0,0], [0,0,2,1,1,0,1]]
-    matrix3 = [[2,0,1],[0,1,0], [1,0,0]]
-    # matrix3, exit = read.read('encoding.txt')
+    # matrix3 = [[2,0,1],[0,1,0], [1,0,0]]
+    matrix3, exit = read.read('encoding2.txt')
     print("\ninput matrix:\n", numpy.matrix(matrix3))
     integer = rank(matrix3)
     bases, digits, patterns, columns = get_information(matrix3)
 
     print("\nbases:\t", bases)
     print("digits:\t", digits)
-    print("integer:",integer,"\n")
+    print("integer:",integer)
+    print("patterns:")
+    for i in patterns:
+        print(i)
