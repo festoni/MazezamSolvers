@@ -2,7 +2,7 @@ from BFS import neighbors, is_goal
 import time, heapq
 import rank, unrank, read
 
-def LCFS(start, goal, cycle_detect=False, verbose=False):
+def LCFS(start, goal, cycle_detection=False, verbose=False):
 
     #frontier will look like [(cost, [path]), (cost, [path]), (cost, [path]),...]
     frontier = []   #this frontier will be used as a heap
@@ -25,7 +25,7 @@ def LCFS(start, goal, cycle_detect=False, verbose=False):
             print("length\t:",len(path_tuple[1]))   #print length of solution for convenience
             return path_tuple
         for next_tuple in neighbors(last_vertex, with_cost=True):
-            if cycle_detect:    #include cycle detection if asked for
+            if cycle_detection:    #include cycle detection if asked for
                 if next_tuple[1] in path_tuple[1]:
                     continue
             new_path = (path_tuple[0] + next_tuple[0], path_tuple[1] + [next_tuple[1]])
@@ -41,7 +41,7 @@ def LCFS2(start, goal, pruning=True, verbose=False):
     frontier = []   #this frontier will be used as a heap
     heapq.heappush(frontier, (0,[start_int]))   #heap prioritized by first element of tuple
 
-    #figure out size of visited array (by multiplying bases) and initialize it
+    # figure out size of visited array (by multiplying bases) and initialize it
     prod = 1
     for i in bases:
         prod *= i
@@ -82,10 +82,11 @@ if __name__ == '__main__':
     '''
 
     # test_matrix, exit_row = [[1,1,0,1,1,0], [0,1,1,2,0,0], [0,1,1,0,1,0,]], 2
-    test_matrix, exit_row = read.read('encoding.txt')
+    test_matrix, exit_row = read.read('encoding2.txt')
     # test_matrix, exit_row = [[2,1,1,0], [0,1,0,0], [1,1,0,0]], 2
+    # test_matrix, exit_row = [[2,0,1],[0,1,0], [1,0,0]], 2
 
-    path = LCFS2(test_matrix, exit_row, True, False)
+    path = LCFS2(test_matrix, exit_row, True)
 
 
     if path == None:

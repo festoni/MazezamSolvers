@@ -43,7 +43,7 @@ def is_goal(vertex, goal):
     return False
 
 
-def BFS(start, goal, cycle_detect=False, verbose=False):
+def BFS(start, goal, cycle_detection=False, verbose=False):
     frontier = []
     frontier.append([start])
     while frontier:
@@ -55,17 +55,17 @@ def BFS(start, goal, cycle_detect=False, verbose=False):
                     for line in matrices:
                         print(line)
                     print()
-            print(len(path))    #print length of solution for convenience
+            print("length:", len(path))    #print length of solution for convenience
             return path
         for next_vertex in neighbors(last_vertex):
-            if cycle_detect:    #include cycle detection if asked for
+            if cycle_detection:    #include cycle detection if asked for
                 if next_vertex in path:
                     continue
             new_path = path + [next_vertex]
             frontier.append(new_path)
     return None
 
-def BFS2(start, goal, cycle_detect=False, verbose=False):
+def BFS2(start, goal, cycle_detection=False, verbose=False):
     bases, _, patterns, columns = rank.get_information(start) #parameters for unrank
     frontier = []
     start_int = rank.rank(start) #convert start matrix to its rank integer
@@ -87,11 +87,11 @@ def BFS2(start, goal, cycle_detect=False, verbose=False):
         if is_goal(matrix_last, goal):
             if verbose: #if asked by user, print path
                 print(path)
-            print(len(path))
+            print("length:", len(path))
             return path
         for next_vertex in neighbors(matrix_last):
             int_next = rank.rank(next_vertex) #convert neighbor matrix to integer
-            if cycle_detect:
+            if cycle_detection:
                 if visited[int_next]:
                     continue
             new_path = path + [int_next]
@@ -106,10 +106,10 @@ if __name__ == '__main__':
     testing cases
     '''
     # test_matrix, exit_row = [[1,1,0,1,1,0], [0,1,1,2,0,0], [0,1,1,0,1,0,], ], 2
-    test_matrix, exit_row = read.read('encoding.txt')
+    test_matrix, exit_row = read.read('encoding2.txt')
     # test_matrix, exit_row = [[2,1,1,0], [0,1,0,0], [1,1,0,0]], 2
     # test_matrix, exit_row = [[2,0,1],[0,1,0], [1,0,0]], 2
-    path = BFS2(test_matrix, exit_row, True, False)
+    path = BFS(test_matrix, exit_row, True, False)
 
     if path == None:
         print("No solution was found")
