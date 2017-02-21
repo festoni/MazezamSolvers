@@ -102,16 +102,14 @@ def BFS2(start, goal, cycle_detect=False, verbose=False):
 if __name__ == '__main__':
     start_time = time.time()    #start keeping track of time
 
+    '''
+    testing cases
+    '''
     # test_matrix, exit_row = [[1,1,0,1,1,0], [0,1,1,2,0,0], [0,1,1,0,1,0,], ], 2
-    test_matrix, exit_row = read.read('encoding2.txt')
+    test_matrix, exit_row = read.read('encoding.txt')
     # test_matrix, exit_row = [[2,1,1,0], [0,1,0,0], [1,1,0,0]], 2
     # test_matrix, exit_row = [[2,0,1],[0,1,0], [1,0,0]], 2
-
-    # print(neighbors(test_matrix))
-    # path  = BFS(test_matrix, exit_row, False, False)
     path = BFS2(test_matrix, exit_row, True, False)
-    # path  = BFS(test_matrix, exit_row, True, False)
-
 
     if path == None:
         print("No solution was found")
