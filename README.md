@@ -1,5 +1,7 @@
 # MazezamSolvers
 
+MazezamSolvers is a set of solvers for the puzzle game MazezaM. An example version of the game can be played online [here](https://www.puzzlescript.net/play.html?p=7718522).
+
 NOTES:
   There is a main.py file which has a test case for all the functions
 except DFS, because it enters a loop and never stops.
